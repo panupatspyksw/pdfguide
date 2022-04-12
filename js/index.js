@@ -1,8 +1,8 @@
 
 var base64arrimage
+var swulogo = "./swulogo.jpg"
 
-
-// url can be './folder/image/js  /image/media/example.jpg or https://www.tarkett-asia.com/media/img/M/TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg'
+// url can be './folder/image/js  /image/media/example.jpg '
 const getBase64FromUrl = async (url) => {
     const data = await fetch(url);
     const blob = await data.blob();
@@ -63,6 +63,8 @@ function initpdf(){
         info,
         content: [
             // start page 1
+            // { image: swulogo ,  margin: [0,10,0,10], alignment: "center", fit: [50, 50]}, // image at top center
+            { image: swulogo ,  margin: [0,10,0,10], alignment: "center", fit: [50, 50],  absolutePosition: {x: -440, y: 47.5}}, 
             {
                 text: 'บันทึกข้อความ\n ',
                 style: 'header',
@@ -240,7 +242,7 @@ function initpdf(){
 
 async function init(){
     // get base 64 image from array string image from window.images on index.html
-
+    swulogo = await getBase64FromUrl(swulogo)
     // promise for get base64image in base64arrimage
     if(window.images.length){
         base64arrimage = await Promise.all(
